@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inicio de sesión</ion-title>    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-grid>
+    
+    <ion-row>
+      <ion-col class="col2-center">                
+        <ion-img class= "logo-style" src="../../assets/img/logo.gif"></ion-img>        
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-align-self-center" >         
+        <ion-item lines="none"> 
+          <ion-input type="text" [(ngModel)]="usuario" name="usuario" placeholder="Usuario" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">            
+          <ion-input [(ngModel)]="contrasena" name="contrasena" placeholder="Contraseña" type="password"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col class="col-center">
+        <ion-button type="submit" (click)="logForm()">Login </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+
+  
+
+</ion-content>

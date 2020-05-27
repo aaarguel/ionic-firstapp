@@ -1,5 +1,7 @@
 {
   "name": "posi",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -16,6 +16,14 @@ ion-menu-button {
   line-height: 26px;
 }
 
+page-home {
+  #map_canvas{
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}
+
 #container p {
   font-size: 16px;
   line-height: 22px;
