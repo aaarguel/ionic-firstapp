@@ -5,16 +5,28 @@ import { doc_users} from '../interfaces/doc-users';
 import {Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map, take, debounceTime } from 'rxjs/operators';
+import { interval } from 'rxjs';
+
 export class CustomValidator {
-  static username(afs: AngularFirestore) {
+  static username(afs: AngularFirestore,
+                  firebase: FirebaseService) {
     return (control: AbstractControl) => {
-      const username = control.value.toLowerCase();
-      return afs.collection('usuarios', ref=> ref.where('username','==',username))
-      .valueChanges().pipe(
-        debounceTime(500),
-        take(1),
-        map(arr=>arr.length?{usernameAvailable:false}:null)
-      )
+      const username = control.value;
+      console.log(username);
+      return new Promise(resolve => {
+        //Fake a slow response from server
+        firebase.getUserbyUserName(username).subscribe(data =>{    //Para obtener la data que se necesita    
+          setTimeout(() => {          
+            if(!(data.length>0)){
+              resolve({
+                "username taken": true
+              });
+            } else {
+              resolve(null);
+            }
+          }, 2000);                                        
+        });        
+      });
     }
   }
 }
@@ -40,15 +52,12 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() { 
-    this.initForm();
-    this.firebase.getUsers().subscribe(usuarios=>{ //Puede cambiar por then
-      console.log(usuarios);
-    });
+    this.initForm();        
   }
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      username : ['',[Validators.required, CustomValidator.username(this.afs)]],
+      username : ['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')]), CustomValidator.username(this.afs,this.firebase)],
       password : ['',[Validators.required]]
     });
   }
@@ -60,8 +69,9 @@ export class LoginPage implements OnInit {
   };
 
   change(ev) {
-    console.log(this.loginForm.controls['username'].errors)
+    //console.log(this.loginForm.controls['username'].errors)
   }
+  
   get username() {
     return this.loginForm.get("username");
   }
@@ -70,7 +80,7 @@ export class LoginPage implements OnInit {
   }
 
   logForm() {
-    this.firebase.logIn(this.usuario,this.contrasena).subscribe(doc=>{   
+    this.firebase.logIn(this.loginForm.value.username,this.loginForm.value.password).subscribe(doc=>{   
       this.document=doc[0];      
       if(this.document){
         console.log(this.document.data);
@@ -78,13 +88,8 @@ export class LoginPage implements OnInit {
       }else{
         console.log("jeje :v buen  intento rufian");
       }
-    });
-    
+    });    
   }
 
-
-  public submit() {
-    console.log(this.loginForm.value);
-  }    
 }
 

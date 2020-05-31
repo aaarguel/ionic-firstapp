@@ -4,43 +4,56 @@
   </ion-toolbar>
 </ion-header>
 
+
+
+
 <ion-content>
   
+  <ion-grid>
+    
+    <ion-row>
+      <ion-col>                
+        <ion-img class= "logo-style" src="../../assets/img/a_tiempo2.gif"></ion-img>        
+      </ion-col>
+    </ion-row>
   
-
-  <form [formGroup]="loginForm" (ngSubmit)="submit()">
-    <ion-list>
-
-      <ion-item lines="none">
-        <ion-input (ngModelChange)="change($event)" inputmode="text" formControlName="username" ></ion-input>
-      </ion-item>
+  </ion-grid>
+  
+  <form [formGroup]="loginForm">
       
-      <div *ngIf= "username.hasError" >
-        Firebase
-      </div>
+      <ion-list>
+        
+        <ion-item text-center lines="none">
+          <div class="center-all">    
+            <ion-input (ngModelChange)="change($event)" inputmode="text" formControlName="username" ></ion-input>
+            <ion-spinner *ngIf="loginForm.controls.username.pending" name="crescent"></ion-spinner>   
+          </div>
+        </ion-item>
 
-      <div *ngIf= "username.valid" >
-        {{username.value}} is available
-      </div>
+                
+        <div *ngIf="loginForm.controls.username.novalid">
+          {{ username.value }} is not available
+        </div>
 
-      <div *ngIf= "username.pending" >
-        Hold tigh ... Checking availability of {{username.value}} 
-      </div>
+        <div *ngIf="loginForm.controls.username.valid">
+          {{ username.value }} is available
+        </div>
+              
 
-      <ion-item lines="none">
-        <ion-input inputmode="text" formControlName="password"></ion-input>
-      </ion-item>
+        <ion-item lines="none">
+          <ion-input *ngIf="loginForm.controls.username.valid" inputmode="text" formControlName="password"></ion-input>
+        </ion-item>
 
-      <div *ngFor="let error of errorMessages.password">
-        <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
-          <small class="error-message">{{error.message}}</small>
-        </ng-container>
-      </div>
+        <div *ngFor="let error of errorMessages.password">
+          <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
 
-      <ion-item lines="none">
-        <ion-button [disabled]="!loginForm.valid" type="submit" (click)="logForm()">Login </ion-button>
-      </ion-item>
-      
-    </ion-list>
+        <ion-item lines="none">
+          <ion-button [disabled]="loginForm.invalid" type="submit" *ngIf="loginForm.controls.username.valid" (click)="logForm()">Login </ion-button>
+        </ion-item>      
+      </ion-list>
+    
   </form>
 </ion-content>

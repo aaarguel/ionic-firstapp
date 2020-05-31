@@ -12,15 +12,13 @@ export class FirebaseService {
 
 
   getUserbyUserName(username: string) {
-    (control: AbstractControl) => {
-      const username = control.value.toLowerCase();
-      return this.fireStore.collection('usuarios', ref => ref.where('username','==', username))
-      .valueChanges().pipe(
-        debounceTime(500),
-        take(1),
-        map(arr => arr.length ? { usernameAvaliable : false} : null),
-      )
-    }
+    return this.fireStore.collection('usuarios', ref => ref.where('username', '==', username)
+    ).snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {        
+        const data = a.payload.doc.data();                
+        return data;
+      });
+    }));
   }
 
   getUsers() {
