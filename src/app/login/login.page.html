@@ -12,9 +12,13 @@
     <ion-list>
 
       <ion-item lines="none">
-        <ion-input inputmode="text" formControlName="username" ></ion-input>
+        <ion-input (ngModelChange)="change($event)" inputmode="text" formControlName="username" ></ion-input>
       </ion-item>
       
+      <div *ngIf= "username.hasError" >
+        Firebase
+      </div>
+
       <div *ngIf= "username.valid" >
         {{username.value}} is available
       </div>
