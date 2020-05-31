@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
   document: doc_users;  
 
   loginForm = this.formBuilder.group({
-    username : ['',[Validators.required, CustomValidator.username(this.afs)]],
+    username : ['',[Validators.required, this.firebase.getUserbyUserName(this.usuario)]],
     password : ['',[Validators.required]]
   });
 
@@ -68,16 +68,3 @@ export class LoginPage implements OnInit {
     
 }
 
-export class CustomValidator {
-  static username(afs: AngularFirestore){
-    return (control: AbstractControl) => {
-      const username = control.value.toLowerCase();
-      return afs.collection('usuarios', ref => ref.where('username','==', username))
-      .valueChanges().pipe(
-        debounceTime(500),
-        take(1),
-        map(arr => arr.length ? { usernameAvaliable : false} : null),
-      )
-    }
-  }
-}
