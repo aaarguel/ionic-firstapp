@@ -19,41 +19,42 @@
   
   </ion-grid>
   
-  <form [formGroup]="loginForm">
+  <form [formGroup]="loginForm" class= "center-all">
       
-      <ion-list>
+      <ion-list >
         
-        <ion-item text-center lines="none">
-          <div class="center-all">    
-            <ion-input (ngModelChange)="change($event)" inputmode="text" formControlName="username" ></ion-input>
-            <ion-spinner *ngIf="loginForm.controls.username.pending" name="crescent"></ion-spinner>   
-          </div>
-        </ion-item>
-
-                
-        <div *ngIf="loginForm.controls.username.novalid">
-          {{ username.value }} is not available
-        </div>
-
-        <div *ngIf="loginForm.controls.username.valid">
-          {{ username.value }} is available
-        </div>
-              
-
-        <ion-item lines="none">
-          <ion-input *ngIf="loginForm.controls.username.valid" inputmode="text" formControlName="password"></ion-input>
-        </ion-item>
-
-        <div *ngFor="let error of errorMessages.password">
-          <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
-            <small class="error-message">{{error.message}}</small>
-          </ng-container>
-        </div>
-
-        <ion-item lines="none">
-          <ion-button [disabled]="loginForm.invalid" type="submit" *ngIf="loginForm.controls.username.valid" (click)="logForm()">Login </ion-button>
-        </ion-item>      
+        <ion-item text-center lines="none" >            
+          <ion-input (ngModelChange)="change($event)" inputmode="text" formControlName="username" placeholder="User"></ion-input>
+          <ion-spinner *ngIf="loginForm.controls.username.pending" name="crescent"></ion-spinner>                       
+        </ion-item>        
+                  
       </ion-list>
     
   </form>
+
+
+  <form [formGroup]="passForm" class= "center-all">
+      
+    <ion-list >
+      
+      <ion-item lines="none">
+        <ion-input *ngIf="loginForm.controls.username.valid" type="password" formControlName="password" placeholder="Password"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none">
+        <ion-spinner *ngIf="passForm.controls.password.pending" name="crescent" class= "center-spinner"></ion-spinner>        
+      </ion-item> 
+
+      
+
+    </ion-list>
+    
+    <ion-label disabled="true" (click)="registerForm($event)">Register now</ion-label>
+
+    
+
+  </form>
+
+  
+  
 </ion-content>

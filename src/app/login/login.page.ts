@@ -12,6 +12,7 @@ export class CustomValidator {
                   firebase: FirebaseService) {
     return (control: AbstractControl) => {
       const username = control.value;
+      
       console.log(username);
       return new Promise(resolve => {
         //Fake a slow response from server
@@ -29,6 +30,34 @@ export class CustomValidator {
       });
     }
   }
+
+
+  static login(afs: AngularFirestore,
+    firebase: FirebaseService,
+    username: AbstractControl,
+    router: Router) {
+    return (control: AbstractControl) => {          
+          const password = control.value;  
+          let document: doc_users;         
+          console.log(username);
+          console.log(password)
+          return new Promise(resolve => {
+          //Fake a slow response from server
+          firebase.logIn(username.value,password).subscribe(doc=>{             
+            setTimeout(() => {          
+              document=doc[0];      
+              if(document){
+                console.log(document.data);
+                router.navigate(['/folder/Inbox']);
+              }else{
+                resolve(null);
+              }
+            }, 2000);            
+          });                 
+      });
+    }
+}
+
 }
 @Component({
   selector: 'app-login',
@@ -43,7 +72,7 @@ export class LoginPage implements OnInit {
   contrasena: string;
   document: doc_users;  
   loginForm: FormGroup;
-
+  passForm: FormGroup;
   constructor(private router: Router,
               private afs: AngularFirestore,
               private firebase: FirebaseService,
@@ -57,16 +86,15 @@ export class LoginPage implements OnInit {
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      username : ['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')]), CustomValidator.username(this.afs,this.firebase)],
-      password : ['',[Validators.required]]
+      username : ['',Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')]), CustomValidator.username(this.afs,this.firebase)],      
+    });
+
+    this.passForm = this.formBuilder.group({      
+      password : ['',Validators.compose([Validators.required]), CustomValidator.login(this.afs,this.firebase,this.loginForm.controls.username,this.router)]
     });
   }
 
-  public errorMessages = {    
-    password: [
-      { type: 'required', message: 'Se necesita la contraseña' }      
-    ],
-  };
+  
 
   change(ev) {
     //console.log(this.loginForm.controls['username'].errors)
@@ -76,7 +104,7 @@ export class LoginPage implements OnInit {
     return this.loginForm.get("username");
   }
   get password() {
-    return this.loginForm.get("password");
+    return this.passForm.get("password");
   }
 
   logForm() {
@@ -89,6 +117,11 @@ export class LoginPage implements OnInit {
         console.log("jeje :v buen  intento rufian");
       }
     });    
+  }
+
+  registerForm(ev){    
+    console.log("jeje :v buen  intento rufian");
+    this.router.navigate(['register']);
   }
 
 }

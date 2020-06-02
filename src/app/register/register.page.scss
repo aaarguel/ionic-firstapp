@@ -1,0 +1,24 @@
+ion-input{    
+    //border: solid 2px #A3D0E8; 
+    text-align:center;    
+    font-family: 'Raleway';
+    --placeholder-color: --ion-color-primary;     /* placeholder text color */
+    color: var(--ion-color-primary); /* input text color to primary */
+}
+
+ion-button{
+    margin-left: 55px;   
+}
+.scroll-content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+  }
+
+ion-label{
+    font-family: 'Raleway';
+    margin-top: 110px;    
+    font-size: 0.75em; 
+}

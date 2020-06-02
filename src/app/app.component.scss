@@ -1,3 +1,5 @@
+@import '../theme/fonts';
+
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
@@ -8,6 +10,8 @@ ion-menu.md ion-content {
   --padding-top: 20px;
   --padding-bottom: 20px;
 }
+
+
 
 ion-menu.md ion-list {
   padding: 20px 0;

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sign in</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="regisForm" class= "scroll-content">
+      
+    <ion-list >
+      
+      <ion-item text-center >            
+        <ion-input  inputmode="text" formControlName="firstname" placeholder="First Name"></ion-input>
+        <ion-spinner *ngIf="regisForm.controls.firstname.pending" name="crescent"></ion-spinner>                       
+      </ion-item> 
+
+
+      <ion-item text-center>            
+        <ion-input  inputmode="text" formControlName="lastname" placeholder="Last Name"></ion-input>
+        <ion-spinner *ngIf="regisForm.controls.lastname.pending" name="crescent"></ion-spinner>                       
+      </ion-item>     
+      
+      <ion-item text-center>            
+        <ion-input  inputmode="text" formControlName="email" placeholder="Email"></ion-input>
+        <ion-spinner *ngIf="regisForm.controls.email.pending" name="crescent"></ion-spinner>                       
+      </ion-item>
+      
+      <ion-item text-center>            
+        <ion-input  inputmode="text" formControlName="username" placeholder="Username"></ion-input>
+        <ion-spinner *ngIf="regisForm.controls.username.pending" name="crescent"></ion-spinner>                       
+      </ion-item>  
+
+      <ion-item text-center>            
+        <ion-input  inputmode="text" type="password" formControlName="password" placeholder="Password"></ion-input>
+        <ion-spinner *ngIf="regisForm.controls.password.pending" name="crescent"></ion-spinner>                       
+      </ion-item>  
+      
+      <ion-item lines="none" class= "scroll-content">
+        <ion-button [disabled]="regisForm.invalid" type="submit" (click)="signIn()">Sign in </ion-button>
+      </ion-item>   
+
+    </ion-list>
+
+    <ion-label disabled="true" (click)="logForm($event)">Log in</ion-label>
+    
+  </form>
+</ion-content>
