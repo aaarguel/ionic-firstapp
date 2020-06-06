@@ -10,11 +10,16 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item lines="none">
+      <ion-button (click)="traceRoute(directionsService, directionsRenderer)">Save</ion-button>
+    </ion-item>
+  </ion-list>
   <div id="map">        
   </div>
 </ion-content>
 
 <ion-fab vertical="bottom" horizontal="start">
-  <ion-fab-button><ion-icon name="compass-outline" (click)="ubiccate()"></ion-icon></ion-fab-button>
+  <ion-fab-button><ion-icon name="compass-outline" (click)="ubicate()"></ion-icon></ion-fab-button>
 </ion-fab>
 
