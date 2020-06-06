@@ -81,7 +81,8 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() { 
-    this.initForm();        
+    this.initForm(); 
+    console.log("dañadisimo el proyecto :'v");
   }
 
   initForm() {
