@@ -122,7 +122,7 @@ export class LoginPage implements OnInit {
 
   registerForm(ev){    
     console.log("jeje :v buen  intento rufian");
-    this.router.navigate(['register']);
+    this.router.navigate(['auth/register']);
   }
 
 }

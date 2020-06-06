@@ -3,58 +3,34 @@
     <ion-title>Inicio de sesión</ion-title>    
   </ion-toolbar>
 </ion-header>
-
-
-
-
 <ion-content>
-  
   <ion-grid>
-    
     <ion-row>
       <ion-col>                
         <ion-img class= "logo-style" src="../../assets/img/a_tiempo2.gif"></ion-img>        
       </ion-col>
     </ion-row>
-  
   </ion-grid>
-  
   <form [formGroup]="loginForm" class= "center-all">
-      
-      <ion-list >
-        
+      <ion-list>
         <ion-item text-center lines="none" >            
           <ion-input (ngModelChange)="change($event)" inputmode="text" formControlName="username" placeholder="User"></ion-input>
           <ion-spinner *ngIf="loginForm.controls.username.pending" name="crescent"></ion-spinner>                       
-        </ion-item>        
-                  
+        </ion-item>         
       </ion-list>
-    
   </form>
-
-
   <form [formGroup]="passForm" class= "center-all">
-      
     <ion-list >
-      
       <ion-item lines="none">
         <ion-input *ngIf="loginForm.controls.username.valid" type="password" formControlName="password" placeholder="Password"></ion-input>
       </ion-item>
-      
       <ion-item lines="none">
         <ion-spinner *ngIf="passForm.controls.password.pending" name="crescent" class= "center-spinner"></ion-spinner>        
       </ion-item> 
-
-      
-
     </ion-list>
-    
-    <ion-label disabled="true" (click)="registerForm($event)">Register now</ion-label>
-
-    
-
   </form>
-
-  
-  
+  <ion-row class= "center-all" style="margin: 0px;">
+    <ion-label disabled="true" (click)="registerForm($event)" class="text-center"
+    style="padding-bottom: 25px; cursor: pointer;">Register now</ion-label>
+  </ion-row>
 </ion-content>

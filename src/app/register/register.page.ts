@@ -91,14 +91,12 @@ export class RegisterPage implements OnInit {
       username: this.regisForm.value.username,
       password: this.regisForm.value.password
     };
-    console.log("por añadir el usuario");
     const docRef = await this.afs.collection('usuarios').add(data);
-    console.log("routeo");
-    this.router.navigate(['login']);    
+    this.router.navigate(['auth/login']);    
   }
 
   logForm(){
-    this.router.navigate(['login']);
+    this.router.navigate(['auth/login']);
   }
 
 

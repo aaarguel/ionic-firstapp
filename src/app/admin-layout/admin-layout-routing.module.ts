@@ -6,7 +6,13 @@ import { AdminLayoutPage } from './admin-layout.page';
 const routes: Routes = [
   {
     path: '',
-    component: AdminLayoutPage
+    component: AdminLayoutPage,
+    children: [
+      {
+        path: 'folder/:id',
+        loadChildren: () => import('../folder/folder.module').then( m => m.FolderPageModule)
+      }
+    ]
   }
 ];
 

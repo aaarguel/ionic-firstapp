@@ -9,32 +9,19 @@ const routes: Routes = [
     redirectTo: 'auth/login',
     pathMatch: 'full'
   },
-
   {
-    path: '',
-    component: AuthLayoutPage,
-    children: [
-      {
-        path: 'register',
-        loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule),
-        data: { title: 'Register'}
-      },
-	    {
-        path: 'auth',
-        loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
-        data: { title: 'Login'}
-      }
-    ]
+    path: 'auth',
+    loadChildren: () => import('./auth-layout/auth-layout.module').then(m => m.AuthLayoutPageModule)
   },
   {
       path: '',
-      component: AdminLayoutPage,
-      children: [
+      loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutPageModule),
+      /*children: [
         {
           path: 'folder/:id',
           loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
         }
-      ]
+      ]*/
   }
 ];
 
